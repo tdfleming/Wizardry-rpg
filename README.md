@@ -74,11 +74,60 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
 ## 🛠️ Technical Details
 
 ### Built With
-- **React** with hooks (useState, useEffect)
+- **React 18** with hooks (useState, useEffect)
+- **Vite** for fast development and building
 - **Tailwind CSS** for styling
 - **Lucide React** for icons
-- **shadcn/ui** for Alert components
 - **Google Fonts** (Fondamento)
+
+### Project Structure
+```
+Wizardry-rpg/
+├── src/
+│   ├── components/
+│   │   ├── combat/          # Combat screen components
+│   │   │   ├── BattleAnimations.jsx
+│   │   │   ├── CharacterSprite.jsx
+│   │   │   ├── Combat.jsx
+│   │   │   ├── EnemyInfo.jsx
+│   │   │   ├── MonsterSprite.jsx
+│   │   │   └── PartyActions.jsx
+│   │   ├── exploration/     # Exploration screen components
+│   │   │   ├── DungeonMap.jsx
+│   │   │   ├── Exploration.jsx
+│   │   │   ├── NavigationControls.jsx
+│   │   │   └── PartyStatus.jsx
+│   │   ├── party/           # Party creation components
+│   │   │   ├── ClassSelector.jsx
+│   │   │   ├── PartyCreation.jsx
+│   │   │   └── PartyList.jsx
+│   │   ├── ui/              # Reusable UI components
+│   │   │   └── Alert.jsx
+│   │   └── GameOver.jsx     # Game over screen
+│   ├── data/                # Game data constants
+│   │   ├── classes.js
+│   │   ├── constants.js
+│   │   ├── monsters.js
+│   │   └── spells.js
+│   ├── hooks/               # Custom React hooks
+│   │   ├── useGameState.js
+│   │   └── useKeyboardControls.js
+│   ├── utils/               # Utility functions
+│   │   ├── characterUtils.js
+│   │   ├── combatUtils.js
+│   │   └── dungeonUtils.js
+│   ├── styles/              # CSS files
+│   │   └── animations.css
+│   ├── App.jsx              # Main app component
+│   ├── main.jsx             # Entry point
+│   └── index.css            # Global styles
+├── public/                  # Static assets
+├── index.html               # HTML template
+├── package.json             # Dependencies
+├── vite.config.js           # Vite configuration
+├── tailwind.config.js       # Tailwind configuration
+└── postcss.config.js        # PostCSS configuration
+```
 
 ### Game Mechanics
 - **XP Curve**: 100 base XP, scales by 1.5x per level
@@ -89,12 +138,39 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
 
 ## 📦 Installation
 
-This is a React component designed to work with Claude.ai artifacts or can be integrated into any React project.
+### Prerequisites
+- Node.js 16+ and npm (or yarn/pnpm)
 
-For standalone use:
-1. Ensure you have React, Tailwind CSS, and the required dependencies installed
-2. Import the component into your React app
-3. Render `<WizardryGame />`
+### Setup
+1. Clone or download the repository:
+   ```bash
+   git clone <repository-url>
+   cd Wizardry-rpg
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+### Build for Production
+```bash
+npm run build
+```
+
+The production-ready files will be in the `dist/` directory.
+
+### Preview Production Build
+```bash
+npm run preview
+```
 
 ## 🎨 Screenshots
 
