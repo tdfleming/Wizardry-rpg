@@ -482,6 +482,7 @@ export default function App() {
       <GameOver
         message={message}
         onRestart={restartGame}
+        party={party}
       />
     );
   }

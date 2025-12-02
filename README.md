@@ -93,6 +93,23 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Hanging chains that sway gently
   - Atmospheric details scale with dungeon depth
 
+### Game Over Screens
+- **Dynamic Victory/Defeat Detection**: Automatically detects victory vs defeat states
+- **Victory Screen**:
+  - Trophy icon with glowing effects
+  - Golden gradient typography
+  - Victory atmosphere with sparkles
+  - Party summary with survival stats, levels, and gold earned
+  - Inspirational quotes
+- **Defeat Screen**:
+  - Skull icon with red glow
+  - Crimson gradient typography
+  - Dark dungeon atmosphere
+  - Final statistics showing fallen heroes and lost gold
+  - Haunting flavor text
+- **Staggered Entrance Animations**: Smooth fade-in with delays for dramatic reveal
+- **Party Statistics Summary**: Shows total levels, gold, and survival rates
+
 ### Polish
 - **Custom Typography**: Fondamento font for that medieval RPG feel
 - **Status Tracking**: Real-time HP/MP bars, XP progress, gold tracking
