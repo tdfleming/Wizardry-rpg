@@ -5,6 +5,8 @@ import { MonsterSprite } from './MonsterSprite';
 import { BattleAnimations } from './BattleAnimations';
 import { PartyActions } from './PartyActions';
 import { EnemyInfo } from './EnemyInfo';
+import { ParticleSystem } from '../effects/ParticleSystem';
+import { ScreenEffects, FloatingText } from '../effects/ScreenEffects';
 
 export function Combat({
   party,
@@ -15,15 +17,19 @@ export function Combat({
   selectedAction,
   message,
   onAttack,
-  onCastSpell
+  onCastSpell,
+  particles = [],
+  onParticleComplete,
+  floatingTexts = [],
+  onTextComplete,
+  screenEffects = {}
 }) {
   const aliveParty = party.filter(p => p.alive);
   const aliveMonsters = combat.monsters.filter(m => m.currentHp > 0);
 
   return (
-    <div className={`w-full min-h-screen bg-gradient-to-b from-red-950 to-gray-900 text-gray-100 p-4 ${
-      battleAnimation?.isCrit ? 'animate-screenShake' : ''
-    }`}>
+    <ScreenEffects effects={screenEffects}>
+      <div className="w-full min-h-screen bg-gradient-to-b from-red-950 to-gray-900 text-gray-100 p-4">
       <div className="max-w-6xl mx-auto">
         {message && (
           <Alert className="mb-4 bg-gray-800 border-2 border-red-600 text-gray-100">
@@ -69,6 +75,12 @@ export function Combat({
 
           {/* Animations */}
           <BattleAnimations battleAnimation={battleAnimation} isVictory={isVictory} />
+
+          {/* Particle System */}
+          <ParticleSystem particles={particles} onParticleComplete={onParticleComplete} />
+
+          {/* Floating Combat Text */}
+          <FloatingText texts={floatingTexts} onComplete={onTextComplete} />
 
           {/* Battle Ready Text */}
           {!battleAnimation && !isVictory && (
@@ -122,5 +134,6 @@ export function Combat({
         </div>
       </div>
     </div>
+    </ScreenEffects>
   );
 }

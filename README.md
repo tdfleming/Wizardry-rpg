@@ -20,7 +20,15 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Priests: Healing and holy magic
 - **Critical Hits**: 15% base chance + DEX bonus, deals 1.8x damage
 - **Spell System**: MP-based magic with healing and offensive spells
-- **Visual Effects**: Projectiles, damage numbers, hit reactions, screen shake
+- **Advanced Visual Effects**:
+  - Particle system with spell-specific effects (fire embers, ice crystals, lightning bolts)
+  - Hit sparks and impact particles on attacks
+  - Death explosions and magical glitter
+  - Floating damage numbers with arc trajectories
+  - Hit-stop freeze frames for impactful combat feel
+  - Screen shake (light, medium, heavy) based on attack power
+  - Flash effects (damage, healing, critical hits)
+  - Treasure sparkle and level-up burst effects
 
 ### UI/UX
 - **Keyboard Navigation**: Full keyboard support for movement and combat

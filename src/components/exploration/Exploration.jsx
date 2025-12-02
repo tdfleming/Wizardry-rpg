@@ -3,6 +3,7 @@ import { Alert, AlertDescription } from '../ui/Alert';
 import { DungeonMap } from './DungeonMap';
 import { NavigationControls } from './NavigationControls';
 import { PartyStatus } from './PartyStatus';
+import { ParticleSystem } from '../effects/ParticleSystem';
 
 export function Exploration({
   dungeon,
@@ -11,10 +12,12 @@ export function Exploration({
   party,
   message,
   onMove,
-  onRest
+  onRest,
+  particles = [],
+  onParticleComplete
 }) {
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-gray-900 to-black text-gray-100 p-4">
+    <div className="w-full min-h-screen bg-gradient-to-b from-gray-900 to-black text-gray-100 p-4 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {message && (
           <Alert className="mb-4 bg-gray-800 border-2 border-amber-600 text-gray-100">
@@ -57,6 +60,9 @@ export function Exploration({
           </div>
         </div>
       </div>
+
+      {/* Particle System */}
+      <ParticleSystem particles={particles} onParticleComplete={onParticleComplete} />
     </div>
   );
 }
