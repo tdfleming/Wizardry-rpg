@@ -20,6 +20,14 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Priests: Healing and holy magic
 - **Critical Hits**: 15% base chance + DEX bonus, deals 1.8x damage
 - **Spell System**: MP-based magic with healing and offensive spells
+- **Enhanced Combat UI**:
+  - Spell tooltips showing damage, MP cost, and descriptions
+  - Visual separation of attacks vs spells
+  - Compact HP/MP bars on each character
+  - MP cost warnings when low on mana
+  - Hotkey badges for quick selection
+  - Gradient backgrounds and visual polish
+  - Acting character highlighted during animations
 - **Advanced Visual Effects**:
   - Particle system with spell-specific effects (fire embers, ice crystals, lightning bolts)
   - Hit sparks and impact particles on attacks
@@ -29,6 +37,21 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Screen shake (light, medium, heavy) based on attack power
   - Flash effects (damage, healing, critical hits)
   - Treasure sparkle and level-up burst effects
+
+### Party Creation
+- **Rich Class Cards**: Detailed class information with descriptions and role indicators
+  - Full stat breakdowns (HP, MP, STR, INT, DEX)
+  - Class specialty descriptions
+  - Ability/spell previews for each class
+  - Staggered entrance animations
+  - Visual selection indicators with checkmarks
+- **Enhanced Party Management**:
+  - Beautiful character cards showing stats and abilities
+  - Empty state prompts for guidance
+  - Smooth add/remove animations
+  - Party composition counter
+  - Helpful tips and recommendations
+- **Atmospheric Title Screen**: Background effects and gradient typography
 
 ### UI/UX
 - **Keyboard Navigation**: Full keyboard support for movement and combat
@@ -59,6 +82,33 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Hover effects on interactive elements
   - Staggered animations for lists
   - Enhanced visual hierarchy
+  - Modern button components with smooth animations
+  - Icon buttons with hover/active states and tooltips
+  - Enhanced navigation controls with visual feedback
+- **Dungeon Atmosphere Details**:
+  - Dripping water droplets with splash effects
+  - Cobwebs swaying in corners
+  - Wall cracks and weathering
+  - Flickering candles with dynamic glow
+  - Hanging chains that sway gently
+  - Atmospheric details scale with dungeon depth
+
+### Game Over Screens
+- **Dynamic Victory/Defeat Detection**: Automatically detects victory vs defeat states
+- **Victory Screen**:
+  - Trophy icon with glowing effects
+  - Golden gradient typography
+  - Victory atmosphere with sparkles
+  - Party summary with survival stats, levels, and gold earned
+  - Inspirational quotes
+- **Defeat Screen**:
+  - Skull icon with red glow
+  - Crimson gradient typography
+  - Dark dungeon atmosphere
+  - Final statistics showing fallen heroes and lost gold
+  - Haunting flavor text
+- **Staggered Entrance Animations**: Smooth fade-in with delays for dramatic reveal
+- **Party Statistics Summary**: Shows total levels, gold, and survival rates
 
 ### Polish
 - **Custom Typography**: Fondamento font for that medieval RPG feel
