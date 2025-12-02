@@ -28,6 +28,15 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Hotkey badges for quick selection
   - Gradient backgrounds and visual polish
   - Acting character highlighted during animations
+  - Threat level system for monsters (Deadly, Dangerous, Moderate, Weak)
+  - Dynamic threat badges with glowing effects
+  - Enhanced enemy cards with stat displays and icons
+  - Wounded status indicators for low HP enemies
+- **Celebration Modals**:
+  - Treasure discovery modal with golden theme and sparkle effects
+  - Level up modal with stat gains and particle effects
+  - Auto-closing celebratory overlays with smooth animations
+  - Cinematic presentation of achievements
 - **Advanced Visual Effects**:
   - Particle system with spell-specific effects (fire embers, ice crystals, lightning bolts)
   - Hit sparks and impact particles on attacks
