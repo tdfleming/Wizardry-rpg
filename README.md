@@ -59,6 +59,16 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Hover effects on interactive elements
   - Staggered animations for lists
   - Enhanced visual hierarchy
+  - Modern button components with smooth animations
+  - Icon buttons with hover/active states and tooltips
+  - Enhanced navigation controls with visual feedback
+- **Dungeon Atmosphere Details**:
+  - Dripping water droplets with splash effects
+  - Cobwebs swaying in corners
+  - Wall cracks and weathering
+  - Flickering candles with dynamic glow
+  - Hanging chains that sway gently
+  - Atmospheric details scale with dungeon depth
 
 ### Polish
 - **Custom Typography**: Fondamento font for that medieval RPG feel

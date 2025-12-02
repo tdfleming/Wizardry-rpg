@@ -5,6 +5,7 @@ import { NavigationControls } from './NavigationControls';
 import { PartyStatus } from './PartyStatus';
 import { ParticleSystem } from '../effects/ParticleSystem';
 import { AtmosphereEffects } from '../effects/AtmosphereEffects';
+import { DungeonDetails, Candles } from '../effects/DungeonDetails';
 
 export function Exploration({
   dungeon,
@@ -21,6 +22,10 @@ export function Exploration({
     <div className="w-full min-h-screen bg-gradient-to-b from-gray-900 to-black text-gray-100 p-4 relative overflow-hidden">
       {/* Atmospheric Effects */}
       <AtmosphereEffects intensity="medium" theme="dungeon" />
+
+      {/* Dungeon Details */}
+      <DungeonDetails intensity={dungeonLevel > 5 ? 'high' : 'medium'} />
+      <Candles />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {message && (

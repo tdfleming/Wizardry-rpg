@@ -373,3 +373,84 @@
 .animate-fadeIn {
   animation: fadeInAnimation 0.5s ease-in;
 }
+
+/* Dungeon Detail Animations */
+@keyframes waterDrip {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 0.8;
+  }
+  90% {
+    transform: translateY(400px) scaleY(2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(400px) scaleY(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes waterSplash {
+  0%, 90% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  95% {
+    opacity: 0.6;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+@keyframes cobwebSway {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(3px) rotate(2deg);
+  }
+}
+
+@keyframes chainSwing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes candleFlame {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-2px) scale(1.1);
+  }
+}
+
+@keyframes candleGlow {
+  0% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes mushroomGlow {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
