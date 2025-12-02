@@ -38,6 +38,21 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Flash effects (damage, healing, critical hits)
   - Treasure sparkle and level-up burst effects
 
+### Party Creation
+- **Rich Class Cards**: Detailed class information with descriptions and role indicators
+  - Full stat breakdowns (HP, MP, STR, INT, DEX)
+  - Class specialty descriptions
+  - Ability/spell previews for each class
+  - Staggered entrance animations
+  - Visual selection indicators with checkmarks
+- **Enhanced Party Management**:
+  - Beautiful character cards showing stats and abilities
+  - Empty state prompts for guidance
+  - Smooth add/remove animations
+  - Party composition counter
+  - Helpful tips and recommendations
+- **Atmospheric Title Screen**: Background effects and gradient typography
+
 ### UI/UX
 - **Keyboard Navigation**: Full keyboard support for movement and combat
   - Arrow Keys/WASD for exploration
