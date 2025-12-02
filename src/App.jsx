@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PartyCreation } from './components/party/PartyCreation';
 import { Exploration } from './components/exploration/Exploration';
 import { Combat } from './components/combat/Combat';
 import { GameOver } from './components/GameOver';
+import { TreasureModal, LevelUpModal } from './components/effects/TreasureModal';
 import { useGameState } from './hooks/useGameState';
 import { useKeyboardControls } from './hooks/useKeyboardControls';
 import { generateDungeon } from './utils/dungeonUtils';
@@ -10,6 +11,7 @@ import { generateMonsters, calculateDamage, checkCriticalHit, applyCriticalMulti
 import { checkLevelUp, getXpForLevel } from './utils/characterUtils';
 import { GAME_STATES, DIRECTIONS, TILE_TYPES } from './data/constants';
 import { SPELL_COST } from './data/spells';
+import { CLASSES } from './data/classes';
 import { useParticles, ParticlePresets } from './components/effects/ParticleSystem';
 import { useScreenEffects, useFloatingText } from './components/effects/ScreenEffects';
 import './styles/animations.css';
@@ -44,6 +46,10 @@ export default function App() {
   const { particles, addParticles, removeParticle, clearParticles } = useParticles();
   const { effects, hitEffect, spellImpact, healFlash, criticalFlash, deathEffect } = useScreenEffects();
   const { texts, addText, removeText, clearTexts } = useFloatingText();
+
+  // Modal states
+  const [treasureModal, setTreasureModal] = useState({ visible: false, gold: 0 });
+  const [levelUpModal, setLevelUpModal] = useState({ visible: false, character: null });
 
   // Load Google Font
   useEffect(() => {
@@ -104,6 +110,8 @@ export default function App() {
       setMessage(`You found ${gold} gold!`);
       // Treasure sparkle effect
       addParticles(ParticlePresets.treasureSparkle(window.innerWidth / 2, window.innerHeight / 2));
+      // Show treasure modal
+      setTreasureModal({ visible: true, gold: goldPerChar });
       const newDungeon = [...dungeon];
       newDungeon[newY][newX] = TILE_TYPES.FLOOR;
       setDungeon(newDungeon);
@@ -370,17 +378,38 @@ export default function App() {
       updatedParty = updatedParty.map(char => {
         if (!char.alive) return char;
         const beforeLevel = char.level;
+        const beforeMaxHp = char.maxHp;
+        const beforeMaxMp = char.maxMp;
         let newChar = checkLevelUp(char);
         while (newChar.level > char.level && newChar.xp >= getXpForLevel(newChar.level + 1)) {
           newChar = checkLevelUp(newChar);
         }
         if (newChar.level > beforeLevel) {
-          leveledUp.push({ name: newChar.name, level: newChar.level });
+          const levelUpInfo = {
+            ...newChar,
+            hpGain: newChar.maxHp - beforeMaxHp,
+            mpGain: newChar.maxMp - beforeMaxMp
+          };
+          leveledUp.push(levelUpInfo);
           // Level up visual effect
           addParticles(ParticlePresets.levelUpBurst(window.innerWidth / 2, window.innerHeight / 2));
         }
         return newChar;
       });
+
+      // Show level up modal for first character (can be enhanced to queue all)
+      if (leveledUp.length > 0) {
+        const firstLevelUp = leveledUp[0];
+        const classData = CLASSES[firstLevelUp.class];
+        setLevelUpModal({
+          visible: true,
+          character: {
+            ...firstLevelUp,
+            icon: classData.icon,
+            className: classData.name
+          }
+        });
+      }
 
       setParty(updatedParty);
 
@@ -489,16 +518,30 @@ export default function App() {
 
   // Exploration
   return (
-    <Exploration
-      dungeon={dungeon}
-      position={position}
-      dungeonLevel={dungeonLevel}
-      party={party}
-      message={message}
-      onMove={move}
-      onRest={rest}
-      particles={particles}
-      onParticleComplete={removeParticle}
-    />
+    <>
+      <Exploration
+        dungeon={dungeon}
+        position={position}
+        dungeonLevel={dungeonLevel}
+        party={party}
+        message={message}
+        onMove={move}
+        onRest={rest}
+        particles={particles}
+        onParticleComplete={removeParticle}
+      />
+
+      {/* Global Modals */}
+      <TreasureModal
+        gold={treasureModal.gold}
+        visible={treasureModal.visible}
+        onClose={() => setTreasureModal({ visible: false, gold: 0 })}
+      />
+      <LevelUpModal
+        character={levelUpModal.character}
+        visible={levelUpModal.visible}
+        onClose={() => setLevelUpModal({ visible: false, character: null })}
+      />
+    </>
   );
 }
