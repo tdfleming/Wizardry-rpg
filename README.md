@@ -40,6 +40,25 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
 - **Character Auras**: Class-colored visual effects
 - **Map System**: Live dungeon map with color-coded tiles
 - **Alert System**: Top-positioned alerts for important messages
+- **Enhanced Status Bars**:
+  - Smooth animated HP/MP/XP bars with color gradients
+  - Visual warnings when health is low (pulsing, warning icon)
+  - Shimmer effects on full bars
+  - Percentage overlays for easy reading
+  - Responsive color schemes (green→yellow→red for HP)
+- **Atmospheric Effects**:
+  - Floating dust particles in dungeons
+  - Flickering torch light ambiance
+  - Drifting fog effects
+  - Combat embers and dramatic lighting
+  - Victory sparkles and celebration effects
+  - Vignette overlays for depth
+- **Modern UI Polish**:
+  - Smooth screen transitions between game states
+  - Gradient backgrounds on character cards
+  - Hover effects on interactive elements
+  - Staggered animations for lists
+  - Enhanced visual hierarchy
 
 ### Polish
 - **Custom Typography**: Fondamento font for that medieval RPG feel

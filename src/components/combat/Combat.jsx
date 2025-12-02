@@ -7,6 +7,7 @@ import { PartyActions } from './PartyActions';
 import { EnemyInfo } from './EnemyInfo';
 import { ParticleSystem } from '../effects/ParticleSystem';
 import { ScreenEffects, FloatingText } from '../effects/ScreenEffects';
+import { CombatAtmosphere, VictoryAtmosphere } from '../effects/AtmosphereEffects';
 
 export function Combat({
   party,
@@ -29,8 +30,11 @@ export function Combat({
 
   return (
     <ScreenEffects effects={screenEffects}>
-      <div className="w-full min-h-screen bg-gradient-to-b from-red-950 to-gray-900 text-gray-100 p-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full min-h-screen bg-gradient-to-b from-red-950 to-gray-900 text-gray-100 p-4 relative overflow-hidden">
+      {/* Atmospheric Effects */}
+      {isVictory ? <VictoryAtmosphere /> : <CombatAtmosphere intensity="high" />}
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {message && (
           <Alert className="mb-4 bg-gray-800 border-2 border-red-600 text-gray-100">
             <AlertDescription className="text-center text-lg whitespace-pre-line">

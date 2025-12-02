@@ -4,6 +4,7 @@ import { DungeonMap } from './DungeonMap';
 import { NavigationControls } from './NavigationControls';
 import { PartyStatus } from './PartyStatus';
 import { ParticleSystem } from '../effects/ParticleSystem';
+import { AtmosphereEffects } from '../effects/AtmosphereEffects';
 
 export function Exploration({
   dungeon,
@@ -18,7 +19,10 @@ export function Exploration({
 }) {
   return (
     <div className="w-full min-h-screen bg-gradient-to-b from-gray-900 to-black text-gray-100 p-4 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+      {/* Atmospheric Effects */}
+      <AtmosphereEffects intensity="medium" theme="dungeon" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {message && (
           <Alert className="mb-4 bg-gray-800 border-2 border-amber-600 text-gray-100">
             <AlertDescription className="text-center text-lg whitespace-pre-line">

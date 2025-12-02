@@ -235,3 +235,141 @@
 .animate-levelUp {
   animation: levelUpGlow 1s ease-out;
 }
+
+/* Shimmer Effect for Bars */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Smooth Slide Transitions */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out;
+}
+
+/* Hover Effects */
+@keyframes buttonHover {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Atmospheric Effects */
+@keyframes floatUpDrift {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+@keyframes fogDrift {
+  0%, 100% {
+    transform: translateX(-10%) translateY(0);
+  }
+  50% {
+    transform: translateX(10%) translateY(-5%);
+  }
+}
+
+@keyframes torchFlicker {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.85;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(0.95);
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeInAnimation 0.5s ease-in;
+}
