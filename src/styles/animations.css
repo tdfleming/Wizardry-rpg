@@ -67,3 +67,309 @@
 .animate-screenShake {
   animation: screenShake 0.5s ease-in-out;
 }
+
+/* Enhanced Screen Shake Variants */
+@keyframes lightShake {
+  0%, 100% { transform: translate(0, 0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-3px, 3px); }
+  20%, 40%, 60%, 80% { transform: translate(3px, -3px); }
+}
+
+@keyframes mediumShake {
+  0%, 100% { transform: translate(0, 0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-8px, 8px); }
+  20%, 40%, 60%, 80% { transform: translate(8px, -8px); }
+}
+
+@keyframes heavyShake {
+  0%, 100% { transform: translate(0, 0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-15px, 15px); }
+  20%, 40%, 60%, 80% { transform: translate(15px, -15px); }
+}
+
+.animate-lightShake {
+  animation: lightShake 0.2s ease-in-out;
+}
+
+.animate-mediumShake {
+  animation: mediumShake 0.3s ease-in-out;
+}
+
+.animate-heavyShake {
+  animation: heavyShake 0.4s ease-in-out;
+}
+
+/* Flash Effects */
+@keyframes flashFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes damageFlash {
+  0% { background-color: rgba(255, 0, 0, 0.4); }
+  100% { background-color: rgba(255, 0, 0, 0); }
+}
+
+@keyframes healFlash {
+  0% { background-color: rgba(34, 197, 94, 0.4); }
+  100% { background-color: rgba(34, 197, 94, 0); }
+}
+
+@keyframes criticalFlash {
+  0% { background-color: rgba(250, 204, 21, 0.6); }
+  50% { background-color: rgba(250, 204, 21, 0.3); }
+  100% { background-color: rgba(250, 204, 21, 0); }
+}
+
+/* Smooth Transitions */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* HP/MP Bar Animations */
+@keyframes barPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes barGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 20px currentColor;
+  }
+}
+
+.animate-barPulse {
+  animation: barPulse 1s ease-in-out infinite;
+}
+
+.animate-barGlow {
+  animation: barGlow 1.5s ease-in-out infinite;
+}
+
+/* Particle Animations */
+@keyframes particleFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes particleRise {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkBurst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Level Up Effect */
+@keyframes levelUpGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px 15px rgba(250, 204, 21, 0);
+    transform: scale(1.1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0);
+    transform: scale(1);
+  }
+}
+
+.animate-levelUp {
+  animation: levelUpGlow 1s ease-out;
+}
+
+/* Shimmer Effect for Bars */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Smooth Slide Transitions */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out;
+}
+
+/* Hover Effects */
+@keyframes buttonHover {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Atmospheric Effects */
+@keyframes floatUpDrift {
+  0% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+@keyframes fogDrift {
+  0%, 100% {
+    transform: translateX(-10%) translateY(0);
+  }
+  50% {
+    transform: translateX(10%) translateY(-5%);
+  }
+}
+
+@keyframes torchFlicker {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.85;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(0.95);
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeInAnimation 0.5s ease-in;
+}

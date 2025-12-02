@@ -10,6 +10,8 @@ import { generateMonsters, calculateDamage, checkCriticalHit, applyCriticalMulti
 import { checkLevelUp, getXpForLevel } from './utils/characterUtils';
 import { GAME_STATES, DIRECTIONS, TILE_TYPES } from './data/constants';
 import { SPELL_COST } from './data/spells';
+import { useParticles, ParticlePresets } from './components/effects/ParticleSystem';
+import { useScreenEffects, useFloatingText } from './components/effects/ScreenEffects';
 import './styles/animations.css';
 
 export default function App() {
@@ -37,6 +39,11 @@ export default function App() {
     dungeonLevel,
     setDungeonLevel
   } = useGameState();
+
+  // Visual effects systems
+  const { particles, addParticles, removeParticle, clearParticles } = useParticles();
+  const { effects, hitEffect, spellImpact, healFlash, criticalFlash, deathEffect } = useScreenEffects();
+  const { texts, addText, removeText, clearTexts } = useFloatingText();
 
   // Load Google Font
   useEffect(() => {
@@ -95,6 +102,8 @@ export default function App() {
       const goldPerChar = Math.floor(gold / party.filter(p => p.alive).length);
       setParty(party.map(p => p.alive ? ({ ...p, gold: p.gold + goldPerChar }) : p));
       setMessage(`You found ${gold} gold!`);
+      // Treasure sparkle effect
+      addParticles(ParticlePresets.treasureSparkle(window.innerWidth / 2, window.innerHeight / 2));
       const newDungeon = [...dungeon];
       newDungeon[newY][newX] = TILE_TYPES.FLOOR;
       setDungeon(newDungeon);
@@ -147,6 +156,21 @@ export default function App() {
       isCrit
     });
 
+    // Visual effects
+    hitEffect(isCrit);
+
+    // Particles based on class
+    const centerX = window.innerWidth * 0.6;
+    const centerY = window.innerHeight * 0.4;
+
+    if (isCrit) {
+      addParticles(ParticlePresets.criticalBurst(centerX, centerY));
+    }
+    addParticles(ParticlePresets.hitSparks(centerX, centerY));
+
+    // Floating damage text
+    addText(centerX, centerY, damage, isCrit ? 'critical' : 'damage');
+
     setTimeout(() => {
       const newMonsters = combat.monsters.map(m =>
         m.id === targetId ? { ...m, currentHp: Math.max(0, m.currentHp - damage) } : m
@@ -157,6 +181,9 @@ export default function App() {
       const aliveMonsters = newMonsters.filter(m => m.currentHp > 0);
 
       if (aliveMonsters.length === 0) {
+        // Death particles
+        addParticles(ParticlePresets.deathExplosion(centerX, centerY));
+        deathEffect();
         setBattleAnimation(null);
         setTimeout(() => endCombat(true, newMonsters), 1000);
       } else {
@@ -174,6 +201,8 @@ export default function App() {
     if (!caster || !caster.alive || caster.mp < SPELL_COST) return;
 
     const newParty = party.map(p => p.id === casterId ? { ...p, mp: p.mp - SPELL_COST } : p);
+    const centerX = window.innerWidth * 0.6;
+    const centerY = window.innerHeight * 0.4;
 
     if (spell === 'Heal') {
       const healing = calculateHealing();
@@ -188,6 +217,11 @@ export default function App() {
         targetName: target.name,
         spell
       });
+
+      // Healing effects
+      healFlash();
+      addParticles(ParticlePresets.healingMotes(centerX * 0.4, centerY));
+      addText(centerX * 0.4, centerY, healing, 'heal');
 
       setTimeout(() => {
         setParty(newParty.map(p =>
@@ -215,6 +249,26 @@ export default function App() {
         spell
       });
 
+      // Spell-specific effects
+      const spellType = spell.toLowerCase().includes('fire') ? 'fire' :
+                       spell.toLowerCase().includes('ice') ? 'ice' :
+                       spell.toLowerCase().includes('lightning') ? 'lightning' : 'default';
+
+      spellImpact(spellType);
+
+      // Spell-specific particles
+      if (spell.includes('Fireball') || spell.includes('Fire')) {
+        addParticles(ParticlePresets.fireEmbers(centerX, centerY));
+      } else if (spell.includes('Ice')) {
+        addParticles(ParticlePresets.iceCrystals(centerX, centerY));
+      } else if (spell.includes('Lightning')) {
+        addParticles(ParticlePresets.lightningBolts(centerX, centerY));
+      } else {
+        addParticles(ParticlePresets.magicGlitter(centerX, centerY, '#9333ea'));
+      }
+
+      addText(centerX, centerY, damage, 'magic');
+
       setTimeout(() => {
         const newMonsters = combat.monsters.map(m =>
           m.id === targetId ? { ...m, currentHp: Math.max(0, m.currentHp - damage) } : m
@@ -225,6 +279,9 @@ export default function App() {
         const aliveMonsters = newMonsters.filter(m => m.currentHp > 0);
 
         if (aliveMonsters.length === 0) {
+          // Death particles
+          addParticles(ParticlePresets.deathExplosion(centerX, centerY));
+          deathEffect();
           setBattleAnimation(null);
           setTimeout(() => endCombat(true, newMonsters), 1000);
         } else {
@@ -319,6 +376,8 @@ export default function App() {
         }
         if (newChar.level > beforeLevel) {
           leveledUp.push({ name: newChar.name, level: newChar.level });
+          // Level up visual effect
+          addParticles(ParticlePresets.levelUpBurst(window.innerWidth / 2, window.innerHeight / 2));
         }
         return newChar;
       });
@@ -409,6 +468,11 @@ export default function App() {
         message={message}
         onAttack={attack}
         onCastSpell={castSpell}
+        particles={particles}
+        onParticleComplete={removeParticle}
+        floatingTexts={texts}
+        onTextComplete={removeText}
+        screenEffects={effects}
       />
     );
   }
@@ -432,6 +496,8 @@ export default function App() {
       message={message}
       onMove={move}
       onRest={rest}
+      particles={particles}
+      onParticleComplete={removeParticle}
     />
   );
 }

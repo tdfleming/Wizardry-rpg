@@ -20,7 +20,15 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
   - Priests: Healing and holy magic
 - **Critical Hits**: 15% base chance + DEX bonus, deals 1.8x damage
 - **Spell System**: MP-based magic with healing and offensive spells
-- **Visual Effects**: Projectiles, damage numbers, hit reactions, screen shake
+- **Advanced Visual Effects**:
+  - Particle system with spell-specific effects (fire embers, ice crystals, lightning bolts)
+  - Hit sparks and impact particles on attacks
+  - Death explosions and magical glitter
+  - Floating damage numbers with arc trajectories
+  - Hit-stop freeze frames for impactful combat feel
+  - Screen shake (light, medium, heavy) based on attack power
+  - Flash effects (damage, healing, critical hits)
+  - Treasure sparkle and level-up burst effects
 
 ### UI/UX
 - **Keyboard Navigation**: Full keyboard support for movement and combat
@@ -32,6 +40,25 @@ A modern React-based dungeon crawler inspired by the classic Wizardry games, fea
 - **Character Auras**: Class-colored visual effects
 - **Map System**: Live dungeon map with color-coded tiles
 - **Alert System**: Top-positioned alerts for important messages
+- **Enhanced Status Bars**:
+  - Smooth animated HP/MP/XP bars with color gradients
+  - Visual warnings when health is low (pulsing, warning icon)
+  - Shimmer effects on full bars
+  - Percentage overlays for easy reading
+  - Responsive color schemes (green→yellow→red for HP)
+- **Atmospheric Effects**:
+  - Floating dust particles in dungeons
+  - Flickering torch light ambiance
+  - Drifting fog effects
+  - Combat embers and dramatic lighting
+  - Victory sparkles and celebration effects
+  - Vignette overlays for depth
+- **Modern UI Polish**:
+  - Smooth screen transitions between game states
+  - Gradient backgrounds on character cards
+  - Hover effects on interactive elements
+  - Staggered animations for lists
+  - Enhanced visual hierarchy
 
 ### Polish
 - **Custom Typography**: Fondamento font for that medieval RPG feel
