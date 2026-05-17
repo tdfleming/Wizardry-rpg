@@ -14,7 +14,7 @@ import { SPELLS, SPELL_COST } from '../../data/spells';
 const MONSTER_Y = 220;
 const PARTY_Y = 540;
 const PANEL_W = 150;
-const PANEL_H = 138;
+const PANEL_H = 168;
 
 const HEAL_SPELLS = ['Heal', 'Lay on Hands'];
 
@@ -143,8 +143,8 @@ export class CombatScene extends Phaser.Scene {
         .rectangle(x, PARTY_Y, PANEL_W, PANEL_H, 0x1d1d2c)
         .setStrokeStyle(2, 0x3a3a52);
       const sprite = this.add
-        .image(x, PARTY_Y - 38, `pc_${member.class}`)
-        .setScale(0.92);
+        .image(x, PARTY_Y - 42, `pc_${member.class}`)
+        .setScale(0.56);
       const nameText = this.add
         .text(x, PARTY_Y - 2, member.name, {
           fontFamily: "Fondamento, Georgia, serif",

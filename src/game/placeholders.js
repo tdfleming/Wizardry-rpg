@@ -1,7 +1,15 @@
 // Generates placeholder textures with Phaser Graphics so the game is fully
 // playable before any real art exists. Once generated art is dropped into
 // public/assets/, BootScene will load those instead (see assetManifest.js).
-import { TILE, CLASS_COLORS, MONSTER_COLORS } from './constants';
+import {
+  TILE,
+  CLASS_COLORS,
+  MONSTER_COLORS,
+  PARTY_TEX_W,
+  PARTY_TEX_H,
+  MONSTER_TEX_W,
+  MONSTER_TEX_H,
+} from './constants';
 import { MONSTERS } from '../data/monsters';
 
 function darken(color, amount = 0.5) {
@@ -82,31 +90,36 @@ export function generatePlaceholders(scene) {
   g.generateTexture('spark', 16, 16);
   g.clear();
 
-  // --- Party member sprites, one per class ---
+  // --- Party member sprites — skip any class with real art already loaded ---
+  const pcx = PARTY_TEX_W / 2;
+  const pcy = PARTY_TEX_H / 2;
   Object.entries(CLASS_COLORS).forEach(([cls, color]) => {
+    if (scene.textures.exists(`pc_${cls}`)) return;
     const outline = darken(color, 0.45);
-    g.fillStyle(0x000000, 0).fillRect(0, 0, 48, 48);
-    g.fillStyle(outline, 1).fillCircle(24, 26, 19);
-    g.fillStyle(color, 1).fillCircle(24, 24, 17);
-    g.fillStyle(0xffffff, 0.25).fillCircle(19, 18, 6);
-    g.lineStyle(2, outline).strokeCircle(24, 24, 17);
-    g.generateTexture(`pc_${cls}`, 48, 48);
+    g.fillStyle(0x000000, 0).fillRect(0, 0, PARTY_TEX_W, PARTY_TEX_H);
+    g.fillStyle(outline, 1).fillCircle(pcx, pcy + 4, 36);
+    g.fillStyle(color, 1).fillCircle(pcx, pcy, 33);
+    g.fillStyle(0xffffff, 0.22).fillCircle(pcx - 11, pcy - 12, 12);
+    g.lineStyle(3, outline).strokeCircle(pcx, pcy, 33);
+    g.generateTexture(`pc_${cls}`, PARTY_TEX_W, PARTY_TEX_H);
     g.clear();
   });
 
-  // --- Monster sprites, one per monster type ---
+  // --- Monster sprites — skip any monster with real art already loaded ---
+  const mcx = MONSTER_TEX_W / 2;
+  const mcy = MONSTER_TEX_H / 2;
   MONSTERS.forEach((m) => {
+    if (scene.textures.exists(`mob_${m.name}`)) return;
     const color = MONSTER_COLORS[m.name] || 0x888888;
     const outline = darken(color, 0.4);
-    g.fillStyle(0x000000, 0).fillRect(0, 0, 112, 112);
-    g.fillStyle(outline, 1).fillEllipse(56, 60, 84, 78);
-    g.fillStyle(color, 1).fillEllipse(56, 58, 78, 72);
-    // eyes
-    g.fillStyle(0xffffff, 1).fillCircle(44, 50, 9);
-    g.fillStyle(0xffffff, 1).fillCircle(68, 50, 9);
-    g.fillStyle(0x1a0000, 1).fillCircle(45, 52, 4);
-    g.fillStyle(0x1a0000, 1).fillCircle(67, 52, 4);
-    g.generateTexture(`mob_${m.name}`, 112, 112);
+    g.fillStyle(0x000000, 0).fillRect(0, 0, MONSTER_TEX_W, MONSTER_TEX_H);
+    g.fillStyle(outline, 1).fillEllipse(mcx, mcy + 3, 84, 78);
+    g.fillStyle(color, 1).fillEllipse(mcx, mcy, 78, 72);
+    g.fillStyle(0xffffff, 1).fillCircle(mcx - 12, mcy - 8, 9);
+    g.fillStyle(0xffffff, 1).fillCircle(mcx + 12, mcy - 8, 9);
+    g.fillStyle(0x1a0000, 1).fillCircle(mcx - 11, mcy - 6, 4);
+    g.fillStyle(0x1a0000, 1).fillCircle(mcx + 13, mcy - 6, 4);
+    g.generateTexture(`mob_${m.name}`, MONSTER_TEX_W, MONSTER_TEX_H);
     g.clear();
   });
 

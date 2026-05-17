@@ -42,7 +42,7 @@ export class DungeonScene extends Phaser.Scene {
         this.tileY(state.position.y),
         `pc_${lead.class}`,
       )
-      .setScale(0.82)
+      .setScale(0.42)
       .setDepth(10);
 
     this.revealAround(state.position.x, state.position.y);

@@ -19,7 +19,8 @@ export const ASSET_MANIFEST = {
     { key: 'pc_RANGER', path: 'assets/party/ranger.png' },
     { key: 'pc_PALADIN', path: 'assets/party/paladin.png' },
 
-    { key: 'mob_Goblin', path: 'assets/monsters/goblin.png' },
+    // Goblin currently uses the sprite sheet's kobold art as a stand-in.
+    { key: 'mob_Goblin', path: 'assets/monsters/kobold.png' },
     { key: 'mob_Skeleton', path: 'assets/monsters/skeleton.png' },
     { key: 'mob_Orc', path: 'assets/monsters/orc.png' },
     { key: 'mob_Dark Wizard', path: 'assets/monsters/dark-wizard.png' },

@@ -6,6 +6,13 @@ export const GAME_HEIGHT = 768;
 // above and below for the React HUD bands that overlay the canvas.
 export const TILE = 48;
 
+// Canvas dimensions every party / monster texture is padded to, so real art
+// and procedural placeholders are interchangeable and scale uniformly.
+export const PARTY_TEX_W = 100;
+export const PARTY_TEX_H = 123;
+export const MONSTER_TEX_W = 100;
+export const MONSTER_TEX_H = 117;
+
 // Class accent colours, used for placeholder art and combat UI highlights.
 export const CLASS_COLORS = {
   FIGHTER: 0xc0392b,
