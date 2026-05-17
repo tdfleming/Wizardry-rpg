@@ -23,7 +23,7 @@ export const ASSET_MANIFEST = {
     { key: 'mob_Goblin', path: 'assets/monsters/kobold.png' },
     { key: 'mob_Skeleton', path: 'assets/monsters/skeleton.png' },
     { key: 'mob_Orc', path: 'assets/monsters/orc.png' },
-    { key: 'mob_Dark Wizard', path: 'assets/monsters/dark-wizard.png' },
+    { key: 'mob_Dark Wizard', path: 'assets/monsters/darkwizard.png' },
     { key: 'mob_Dragon', path: 'assets/monsters/dragon.png' },
 
     { key: 'spark', path: 'assets/vfx/spark.png' },

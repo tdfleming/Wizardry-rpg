@@ -100,7 +100,7 @@ export class CombatScene extends Phaser.Scene {
     const startX = GAME_WIDTH / 2 - ((n - 1) * spacing) / 2;
     this.monsterViews = this.monsters.map((m, i) => {
       const x = startX + i * spacing;
-      const baseScale = m.name === 'Dragon' ? 1.55 : 1.0;
+      const baseScale = m.name === 'Dragon' ? 0.82 : 1.0;
       const sprite = this.add
         .image(x, MONSTER_Y, `mob_${m.name}`)
         .setScale(baseScale);

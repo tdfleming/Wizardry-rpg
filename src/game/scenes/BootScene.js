@@ -1,15 +1,20 @@
 import Phaser from 'phaser';
 import { generatePlaceholders } from '../placeholders';
 
-// Real art extracted from the sprite sheet. Any key not listed here (Ranger,
-// Paladin, Orc, Dark Wizard, Dragon) falls back to a procedural placeholder.
+// Real art extracted from the sprite sheets. Every party class and monster
+// now has art; only tiles and VFX still use procedural placeholders.
 const REAL_ASSETS = [
   ['pc_FIGHTER', 'assets/party/fighter.png'],
   ['pc_MAGE', 'assets/party/mage.png'],
   ['pc_PRIEST', 'assets/party/priest.png'],
   ['pc_THIEF', 'assets/party/thief.png'],
+  ['pc_RANGER', 'assets/party/ranger.png'],
+  ['pc_PALADIN', 'assets/party/paladin.png'],
   ['mob_Skeleton', 'assets/monsters/skeleton.png'],
   ['mob_Goblin', 'assets/monsters/kobold.png'],
+  ['mob_Orc', 'assets/monsters/orc.png'],
+  ['mob_Dark Wizard', 'assets/monsters/darkwizard.png'],
+  ['mob_Dragon', 'assets/monsters/dragon.png'],
 ];
 
 export class BootScene extends Phaser.Scene {

@@ -8,10 +8,10 @@ export const TILE = 48;
 
 // Canvas dimensions every party / monster texture is padded to, so real art
 // and procedural placeholders are interchangeable and scale uniformly.
-export const PARTY_TEX_W = 100;
+export const PARTY_TEX_W = 102;
 export const PARTY_TEX_H = 123;
-export const MONSTER_TEX_W = 100;
-export const MONSTER_TEX_H = 117;
+export const MONSTER_TEX_W = 103;
+export const MONSTER_TEX_H = 136;
 
 // Class accent colours, used for placeholder art and combat UI highlights.
 export const CLASS_COLORS = {
