@@ -42,6 +42,8 @@ export class CombatScene extends Phaser.Scene {
     this.actor = null;
     this.pendingSpell = null;
     this.menuObjects = [];
+    // ids of heroes who have already acted this round
+    this.actedIds = new Set();
   }
 
   create() {
@@ -222,15 +224,28 @@ export class CombatScene extends Phaser.Scene {
     this.pendingSpell = null;
     this.clearMenu();
     this.disableAllZones();
-    this.setMessage('Choose a champion to act.');
 
-    let any = false;
-    this.partyViews.forEach((pv) => {
-      if (!pv.member.alive) return;
-      any = true;
-      this.enableZone(pv, pv.panel, () => this.onSelectActor(pv));
-    });
-    if (!any) this.defeat();
+    const living = this.partyViews.filter((pv) => pv.member.alive);
+    if (living.length === 0) {
+      this.defeat();
+      return;
+    }
+    // Every living hero acts once per round, then the monsters retaliate.
+    const pending = living.filter((pv) => !this.actedIds.has(pv.member.id));
+    if (pending.length === 0) {
+      this.monsterTurn();
+      return;
+    }
+
+    const acted = living.length - pending.length;
+    this.setMessage(
+      acted > 0
+        ? `Choose the next champion. (${acted}/${living.length} acted)`
+        : 'Choose a champion to act.',
+    );
+    pending.forEach((pv) =>
+      this.enableZone(pv, pv.panel, () => this.onSelectActor(pv)),
+    );
   }
 
   onSelectActor(pv) {
@@ -484,7 +499,10 @@ export class CombatScene extends Phaser.Scene {
       this.victory();
       return;
     }
-    this.monsterTurn();
+    // Mark this hero done; promptMember moves to the next, or to the
+    // monsters' turn once every living hero has acted.
+    if (this.actor) this.actedIds.add(this.actor.member.id);
+    this.promptMember();
   }
 
   monsterTurn() {
@@ -494,8 +512,12 @@ export class CombatScene extends Phaser.Scene {
 
     const runNext = () => {
       if (step >= attackers.length) {
-        if (this.party.every((p) => !p.alive)) this.defeat();
-        else this.promptMember();
+        if (this.party.every((p) => !p.alive)) {
+          this.defeat();
+        } else {
+          this.actedIds.clear();
+          this.promptMember();
+        }
         return;
       }
       const mv = attackers[step];
