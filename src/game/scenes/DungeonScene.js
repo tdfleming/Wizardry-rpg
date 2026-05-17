@@ -13,6 +13,9 @@ const TILE_TEXTURE = {
   [TILE_TYPES.STAIRS]: 'tile_stairs',
 };
 
+// Wall tiles rotate through these variants for visual variety.
+const WALL_TEXTURES = ['tile_wall', 'tile_wall2', 'tile_wall3'];
+
 const REVEAL_RADIUS = 1;
 
 export class DungeonScene extends Phaser.Scene {
@@ -35,6 +38,7 @@ export class DungeonScene extends Phaser.Scene {
 
     this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x07070d).setOrigin(0);
 
+    this.wallKeys = WALL_TEXTURES.filter((k) => this.textures.exists(k));
     this.drawDungeon(state);
 
     const lead = state.party.find((p) => p.alive) || state.party[0];
@@ -69,8 +73,14 @@ export class DungeonScene extends Phaser.Scene {
       this.fogSprites[y] = [];
       for (let x = 0; x < this.gridW; x++) {
         const type = state.dungeon[y][x];
+        // Pick a wall variant deterministically so it stays stable across
+        // scene redraws (returning from combat, etc.).
+        const key =
+          type === TILE_TYPES.WALL
+            ? this.wallKeys[(x * 3 + y * 7) % this.wallKeys.length]
+            : TILE_TEXTURE[type];
         const tile = this.add
-          .image(this.tileX(x), this.tileY(y), TILE_TEXTURE[type])
+          .image(this.tileX(x), this.tileY(y), key)
           .setDepth(0);
         const fog = this.add
           .image(this.tileX(x), this.tileY(y), 'fog')

@@ -17,6 +17,8 @@ const REAL_ASSETS = [
   ['mob_Dragon', 'assets/monsters/dragon.png'],
   ['tile_floor', 'assets/tiles/floor.png'],
   ['tile_wall', 'assets/tiles/wall.png'],
+  ['tile_wall2', 'assets/tiles/wall2.png'],
+  ['tile_wall3', 'assets/tiles/wall3.png'],
   ['tile_encounter', 'assets/tiles/encounter.png'],
   ['tile_treasure', 'assets/tiles/treasure.png'],
   ['tile_stairs', 'assets/tiles/stairs.png'],
