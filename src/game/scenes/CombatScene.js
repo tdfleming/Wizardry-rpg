@@ -50,7 +50,7 @@ export class CombatScene extends Phaser.Scene {
 
     this.add
       .text(GAME_WIDTH / 2, 38, 'BATTLE', {
-        fontFamily: 'Georgia, serif',
+        fontFamily: "Fondamento, Georgia, serif",
         fontSize: '34px',
         color: '#e6c46a',
       })
@@ -58,7 +58,7 @@ export class CombatScene extends Phaser.Scene {
 
     this.messageText = this.add
       .text(GAME_WIDTH / 2, 84, '', {
-        fontFamily: 'Georgia, serif',
+        fontFamily: "Fondamento, Georgia, serif",
         fontSize: '19px',
         color: '#d8d8e4',
         align: 'center',
@@ -106,7 +106,7 @@ export class CombatScene extends Phaser.Scene {
         .setScale(baseScale);
       const nameText = this.add
         .text(x, MONSTER_Y - 78, `${m.icon} ${m.name}`, {
-          fontFamily: 'Georgia, serif',
+          fontFamily: "Fondamento, Georgia, serif",
           fontSize: '17px',
           color: '#f0d9a8',
         })
@@ -147,7 +147,7 @@ export class CombatScene extends Phaser.Scene {
         .setScale(0.92);
       const nameText = this.add
         .text(x, PARTY_Y - 2, member.name, {
-          fontFamily: 'Georgia, serif',
+          fontFamily: "Fondamento, Georgia, serif",
           fontSize: '16px',
           color: '#ffffff',
         })
@@ -285,7 +285,7 @@ export class CombatScene extends Phaser.Scene {
       .setInteractive({ useHandCursor: true });
     const text = this.add
       .text(x, y, label, {
-        fontFamily: 'Georgia, serif',
+        fontFamily: "Fondamento, Georgia, serif",
         fontSize: '18px',
         color: '#f0d9a8',
       })
@@ -618,7 +618,7 @@ export class CombatScene extends Phaser.Scene {
   floatText(x, y, text, color) {
     const label = this.add
       .text(x, y, text, {
-        fontFamily: 'Georgia, serif',
+        fontFamily: "Fondamento, Georgia, serif",
         fontSize: '26px',
         color,
         stroke: '#000000',

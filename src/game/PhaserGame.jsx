@@ -8,8 +8,25 @@ export function PhaserGame() {
 
   useEffect(() => {
     if (!containerRef.current || gameRef.current) return undefined;
-    gameRef.current = buildGame(containerRef.current);
+    let cancelled = false;
+
+    const start = () => {
+      if (cancelled || !containerRef.current) return;
+      gameRef.current = buildGame(containerRef.current);
+    };
+
+    // Wait for the display font so Phaser renders canvas text with it.
+    if (document.fonts?.load) {
+      Promise.all([
+        document.fonts.load("16px 'Fondamento'"),
+        document.fonts.load("italic 16px 'Fondamento'"),
+      ]).then(start, start);
+    } else {
+      start();
+    }
+
     return () => {
+      cancelled = true;
       gameRef.current?.destroy(true);
       gameRef.current = null;
     };

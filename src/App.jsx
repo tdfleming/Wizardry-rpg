@@ -1,4 +1,4 @@
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { PartyCreation } from './components/party/PartyCreation';
 import { GameOver } from './components/GameOver';
 import { PhaserGame } from './game/PhaserGame';
@@ -9,16 +9,6 @@ import './styles/animations.css';
 export default function App() {
   const state = useSyncExternalStore(gameStore.subscribe, gameStore.getState);
   const [draftParty, setDraftParty] = useState([]);
-
-  // Load the medieval display font.
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.href =
-      'https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&display=swap';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-    return () => document.head.removeChild(link);
-  }, []);
 
   if (state.screen === 'creation') {
     return (
