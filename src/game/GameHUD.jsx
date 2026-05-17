@@ -1,6 +1,20 @@
-import { useSyncExternalStore } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { gameStore } from './store';
+import { audio } from './audio';
 import { CLASSES } from '../data/classes';
+
+function MuteButton() {
+  const [muted, setMuted] = useState(audio.muted);
+  return (
+    <button
+      onClick={() => setMuted(audio.toggleMute())}
+      className="pointer-events-auto absolute right-4 top-4 rounded-lg border-2 border-amber-700/70 bg-gray-900/90 px-3 py-1.5 text-xs font-bold text-amber-200 backdrop-blur-sm transition-colors hover:bg-gray-800"
+      style={{ fontFamily: "'Fondamento', serif" }}
+    >
+      {muted ? 'Sound: Off' : 'Sound: On'}
+    </button>
+  );
+}
 
 function StatBar({ value, max, color }) {
   const ratio = max > 0 ? Math.max(0, Math.min(1, value / max)) : 0;
@@ -53,38 +67,43 @@ function PartyCard({ member }) {
 export function GameHUD() {
   const state = useSyncExternalStore(gameStore.subscribe, gameStore.getState);
 
-  // Combat draws its own full UI on the Phaser canvas.
-  if (state.inCombat) return null;
-
   return (
-    <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4">
-      <div className="flex justify-center">
-        <div className="max-w-2xl rounded-lg border-2 border-amber-700/70 bg-gray-900/90 px-6 py-2 text-center backdrop-blur-sm">
-          <div
-            className="text-sm font-bold tracking-widest text-amber-400"
-            style={{ fontFamily: "'Fondamento', serif" }}
-          >
-            DUNGEON LEVEL {state.dungeonLevel}
-          </div>
-          <p
-            className="whitespace-pre-line text-base text-amber-100"
-            style={{ fontFamily: "'Fondamento', serif" }}
-          >
-            {state.message}
-          </p>
-        </div>
-      </div>
+    <div className="pointer-events-none absolute inset-0">
+      {/* Mute toggle stays visible during combat too. */}
+      <MuteButton />
 
-      <div className="flex flex-col items-center gap-2">
-        <div className="text-xs tracking-wide text-gray-400">
-          Arrows / WASD — move      ·      R — rest the party
+      {/* The rest of the HUD hides during combat — Phaser draws its own UI. */}
+      {!state.inCombat && (
+        <div className="absolute inset-0 flex flex-col justify-between p-4">
+          <div className="flex justify-center">
+            <div className="max-w-2xl rounded-lg border-2 border-amber-700/70 bg-gray-900/90 px-6 py-2 text-center backdrop-blur-sm">
+              <div
+                className="text-sm font-bold tracking-widest text-amber-400"
+                style={{ fontFamily: "'Fondamento', serif" }}
+              >
+                DUNGEON LEVEL {state.dungeonLevel}
+              </div>
+              <p
+                className="whitespace-pre-line text-base text-amber-100"
+                style={{ fontFamily: "'Fondamento', serif" }}
+              >
+                {state.message}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-2">
+            <div className="text-xs tracking-wide text-gray-400">
+              Arrows / WASD — move      ·      R — rest the party
+            </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {state.party.map((member) => (
+                <PartyCard key={member.id} member={member} />
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-2">
-          {state.party.map((member) => (
-            <PartyCard key={member.id} member={member} />
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 }

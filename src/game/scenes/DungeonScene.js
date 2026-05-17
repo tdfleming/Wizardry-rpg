@@ -3,6 +3,7 @@ import { gameStore } from '../store';
 import { GAME_WIDTH, GAME_HEIGHT, TILE } from '../constants';
 import { TILE_TYPES } from '../../data/constants';
 import { generateMonsters } from '../../utils/combatUtils';
+import { audio } from '../audio';
 
 const TILE_TEXTURE = {
   [TILE_TYPES.FLOOR]: 'tile_floor',
@@ -25,6 +26,7 @@ export class DungeonScene extends Phaser.Scene {
 
     this.busy = false;
     gameStore.setState({ inCombat: false });
+    audio.playMusic('dungeon');
     this.gridW = state.dungeon[0].length;
     this.gridH = state.dungeon.length;
     this.offsetX = Math.round((GAME_WIDTH - this.gridW * TILE) / 2);
@@ -115,15 +117,18 @@ export class DungeonScene extends Phaser.Scene {
     if (nx < 0 || ny < 0 || nx >= this.gridW || ny >= this.gridH) {
       gameStore.setState({ message: 'A cold stone wall blocks your path.' });
       this.cameras.main.shake(110, 0.006);
+      audio.bump();
       return;
     }
     if (state.dungeon[ny][nx] === TILE_TYPES.WALL) {
       gameStore.setState({ message: 'A cold stone wall blocks your path.' });
       this.cameras.main.shake(110, 0.006);
+      audio.bump();
       return;
     }
 
     this.busy = true;
+    audio.step();
     gameStore.setState({ position: { x: nx, y: ny, facing } });
 
     this.tweens.add({
@@ -167,11 +172,13 @@ export class DungeonScene extends Phaser.Scene {
       });
       this.tileSprites[y][x].setTexture('tile_floor');
       this.sparkle(this.tileX(x), this.tileY(y));
+      audio.treasure();
       this.busy = false;
       return;
     }
 
     if (type === TILE_TYPES.STAIRS) {
+      audio.descend();
       gameStore.descend();
       this.scene.restart();
       return;
@@ -190,6 +197,7 @@ export class DungeonScene extends Phaser.Scene {
       party,
       message: 'The party rests and recovers its strength.',
     });
+    audio.heal();
   }
 
   sparkle(x, y) {

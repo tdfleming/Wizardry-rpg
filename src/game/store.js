@@ -6,6 +6,7 @@ import { generateDungeon } from '../utils/dungeonUtils';
 import { DUNGEON_SIZE } from '../data/constants';
 
 const WELCOME = 'Welcome, adventurer! Create your party to begin.';
+const SAVE_KEY = 'wizardry-save';
 
 function makeVisited() {
   return Array.from({ length: DUNGEON_SIZE }, () =>
@@ -45,8 +46,66 @@ class GameStore {
   setState = (patch) => {
     const next = typeof patch === 'function' ? patch(this.state) : patch;
     this.state = { ...this.state, ...next };
+    // Auto-save while exploring (combat changes persist once combat ends).
+    if (this.state.screen === 'playing' && !this.state.inCombat) {
+      this._persist();
+    }
     this.listeners.forEach((fn) => fn());
   };
+
+  _persist() {
+    try {
+      const s = this.state;
+      localStorage.setItem(
+        SAVE_KEY,
+        JSON.stringify({
+          party: s.party,
+          dungeonLevel: s.dungeonLevel,
+          position: s.position,
+          dungeon: s.dungeon,
+          visited: s.visited,
+        }),
+      );
+    } catch {
+      // localStorage unavailable — saving is best-effort.
+    }
+  }
+
+  hasSave() {
+    try {
+      return !!localStorage.getItem(SAVE_KEY);
+    } catch {
+      return false;
+    }
+  }
+
+  clearSave() {
+    try {
+      localStorage.removeItem(SAVE_KEY);
+    } catch {
+      // ignore
+    }
+  }
+
+  loadSave() {
+    try {
+      const data = JSON.parse(localStorage.getItem(SAVE_KEY));
+      if (!data || !data.party || !data.dungeon) return false;
+      this.setState({
+        screen: 'playing',
+        inCombat: false,
+        party: data.party,
+        dungeonLevel: data.dungeonLevel,
+        position: data.position,
+        dungeon: data.dungeon,
+        visited: data.visited,
+        message: 'You resume your descent into the dungeon...',
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  }
 
   startGame(party) {
     this.setState({
@@ -71,10 +130,13 @@ class GameStore {
   }
 
   gameOver(message) {
+    // Death is permanent — discard the save.
+    this.clearSave();
     this.setState({ screen: 'gameover', message });
   }
 
   reset() {
+    this.clearSave();
     this.state = initialState();
     this.listeners.forEach((fn) => fn());
   }

@@ -10,6 +10,7 @@ import {
 } from '../../utils/combatUtils';
 import { checkLevelUp, getXpForLevel } from '../../utils/characterUtils';
 import { SPELLS, SPELL_COST } from '../../data/spells';
+import { audio } from '../audio';
 
 const MONSTER_Y = 220;
 const PARTY_Y = 540;
@@ -45,6 +46,7 @@ export class CombatScene extends Phaser.Scene {
 
   create() {
     gameStore.setState({ inCombat: true });
+    audio.playMusic('combat');
     this.add.rectangle(0, 0, GAME_WIDTH, 768, 0x0c0c14).setOrigin(0);
     this.add.rectangle(0, 0, GAME_WIDTH, 360, 0x141426).setOrigin(0);
 
@@ -382,6 +384,7 @@ export class CombatScene extends Phaser.Scene {
     if (isCrit) damage = applyCriticalMultiplier(damage);
 
     this.lunge(actorView.sprite, targetView.sprite, () => {
+      audio.hit(isCrit);
       this.applyMonsterDamage(targetView, damage);
       this.burst(targetView.sprite.x, targetView.sprite.y, 0xffffff, isCrit ? 30 : 16);
       this.floatText(
@@ -406,6 +409,16 @@ export class CombatScene extends Phaser.Scene {
     this.syncParty();
     const damage = calculateDamage(actor, false);
     const color = spellColor(spell);
+    const n = spell.toLowerCase();
+    audio.cast(
+      n.includes('fire')
+        ? 'fire'
+        : n.includes('ice')
+          ? 'ice'
+          : n.includes('lightning')
+            ? 'lightning'
+            : 'default',
+    );
 
     this.castFlash(actorView.sprite, color);
     this.time.delayedCall(260, () => {
@@ -436,6 +449,7 @@ export class CombatScene extends Phaser.Scene {
     this.refreshPartyMember(targetView);
     this.syncParty();
 
+    audio.heal();
     this.castFlash(actorView.sprite, SPELL_COLORS.heal);
     this.burst(targetView.sprite.x, targetView.sprite.y, SPELL_COLORS.heal, 28);
     this.floatText(
@@ -498,6 +512,7 @@ export class CombatScene extends Phaser.Scene {
         Math.floor(monster.damage / 2);
 
       this.lunge(mv.sprite, targetView.sprite, () => {
+        audio.monsterHit();
         const target = targetView.member;
         target.hp = Math.max(0, target.hp - damage);
         target.alive = target.hp > 0;
@@ -558,6 +573,8 @@ export class CombatScene extends Phaser.Scene {
     this.setMessage(msg);
 
     this.burst(GAME_WIDTH / 2, MONSTER_Y, 0xf1c40f, 60);
+    audio.victory();
+    if (leveled.length > 0) this.time.delayedCall(800, () => audio.levelUp());
 
     this.time.delayedCall(1900, () => {
       if (this.encounter) {
@@ -577,6 +594,7 @@ export class CombatScene extends Phaser.Scene {
     this.syncParty();
     this.setMessage('The party has fallen...');
     this.cameras.main.shake(400, 0.014);
+    audio.defeat();
     this.time.delayedCall(1400, () => {
       gameStore.gameOver('Your party has been slain in the depths of the dungeon.');
     });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Users, Sword } from 'lucide-react';
 import { Alert, AlertDescription } from '../ui/Alert';
 import { ClassSelector } from './ClassSelector';
@@ -9,7 +9,14 @@ import { createCharacter } from '../../utils/characterUtils';
 import { CLASSES } from '../../data/classes';
 import { MAX_PARTY_SIZE } from '../../data/constants';
 
-export function PartyCreation({ party, setParty, onStartGame, message }) {
+export function PartyCreation({
+  party,
+  setParty,
+  onStartGame,
+  message,
+  hasSave,
+  onContinue,
+}) {
   const [charNameInput, setCharNameInput] = useState('');
   const [selectedClass, setSelectedClass] = useState(null);
 
@@ -53,6 +60,21 @@ export function PartyCreation({ party, setParty, onStartGame, message }) {
           </h2>
           <div className="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-amber-500 to-transparent rounded-full"></div>
         </div>
+
+        {hasSave && (
+          <div className="text-center mb-6 animate-fadeIn">
+            <button
+              onClick={onContinue}
+              className="px-8 py-3 rounded-lg border-2 border-emerald-500 bg-emerald-900/60 text-emerald-100 text-lg font-bold hover:bg-emerald-800/70 transition-colors shadow-lg"
+              style={{ fontFamily: "'Fondamento', serif" }}
+            >
+              Continue Saved Adventure
+            </button>
+            <div className="text-xs text-gray-500 mt-2">
+              — or forge a new party below —
+            </div>
+          </div>
+        )}
 
         {message && (
           <Alert className="mb-6 bg-gray-800/90 border-2 border-amber-600 text-gray-100 backdrop-blur-sm animate-slideInFromTop">
