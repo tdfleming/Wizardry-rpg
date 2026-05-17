@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { generatePlaceholders } from '../placeholders';
 
-// Real art extracted from the sprite sheets. Every party class and monster
-// now has art; only tiles and VFX still use procedural placeholders.
+// Real art extracted from the sprite sheets. Only the fog overlay still uses
+// a procedural placeholder (it is just a dark square).
 const REAL_ASSETS = [
   ['pc_FIGHTER', 'assets/party/fighter.png'],
   ['pc_MAGE', 'assets/party/mage.png'],
@@ -15,6 +15,12 @@ const REAL_ASSETS = [
   ['mob_Orc', 'assets/monsters/orc.png'],
   ['mob_Dark Wizard', 'assets/monsters/darkwizard.png'],
   ['mob_Dragon', 'assets/monsters/dragon.png'],
+  ['tile_floor', 'assets/tiles/floor.png'],
+  ['tile_wall', 'assets/tiles/wall.png'],
+  ['tile_encounter', 'assets/tiles/encounter.png'],
+  ['tile_treasure', 'assets/tiles/treasure.png'],
+  ['tile_stairs', 'assets/tiles/stairs.png'],
+  ['spark', 'assets/vfx/spark.png'],
 ];
 
 export class BootScene extends Phaser.Scene {

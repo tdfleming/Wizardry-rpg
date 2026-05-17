@@ -26,69 +26,83 @@ function darken(color, amount = 0.5) {
 export function generatePlaceholders(scene) {
   const g = scene.make.graphics({ x: 0, y: 0, add: false });
 
+  const missing = (key) => !scene.textures.exists(key);
+
   // --- Floor tile ---
-  g.fillStyle(0x262633).fillRect(0, 0, TILE, TILE);
-  g.lineStyle(2, 0x33334a).strokeRect(1, 1, TILE - 2, TILE - 2);
-  g.fillStyle(0x2e2e3d);
-  g.fillRect(10, 12, 16, 16);
-  g.fillRect(34, 36, 18, 14);
-  g.generateTexture('tile_floor', TILE, TILE);
-  g.clear();
+  if (missing('tile_floor')) {
+    g.fillStyle(0x262633).fillRect(0, 0, TILE, TILE);
+    g.lineStyle(2, 0x33334a).strokeRect(1, 1, TILE - 2, TILE - 2);
+    g.fillStyle(0x2e2e3d);
+    g.fillRect(10, 12, 16, 16);
+    g.fillRect(34, 36, 18, 14);
+    g.generateTexture('tile_floor', TILE, TILE);
+    g.clear();
+  }
 
   // --- Encounter tile (drawn identical to floor so it stays hidden) ---
-  g.fillStyle(0x262633).fillRect(0, 0, TILE, TILE);
-  g.lineStyle(2, 0x33334a).strokeRect(1, 1, TILE - 2, TILE - 2);
-  g.fillStyle(0x2e2e3d);
-  g.fillRect(18, 20, 16, 16);
-  g.generateTexture('tile_encounter', TILE, TILE);
-  g.clear();
+  if (missing('tile_encounter')) {
+    g.fillStyle(0x262633).fillRect(0, 0, TILE, TILE);
+    g.lineStyle(2, 0x33334a).strokeRect(1, 1, TILE - 2, TILE - 2);
+    g.fillStyle(0x2e2e3d);
+    g.fillRect(18, 20, 16, 16);
+    g.generateTexture('tile_encounter', TILE, TILE);
+    g.clear();
+  }
 
   // --- Wall tile ---
-  g.fillStyle(0x14141c).fillRect(0, 0, TILE, TILE);
-  g.fillStyle(0x2c2c3c).fillRect(0, 0, TILE, 6);
-  g.fillStyle(0x2c2c3c).fillRect(0, 0, 6, TILE);
-  g.fillStyle(0x0a0a10).fillRect(0, TILE - 6, TILE, 6);
-  g.lineStyle(2, 0x070709);
-  g.beginPath();
-  g.moveTo(0, TILE / 2);
-  g.lineTo(TILE, TILE / 2);
-  g.moveTo(TILE / 2, 0);
-  g.lineTo(TILE / 2, TILE / 2);
-  g.moveTo(TILE / 4, TILE / 2);
-  g.lineTo(TILE / 4, TILE);
-  g.strokePath();
-  g.generateTexture('tile_wall', TILE, TILE);
-  g.clear();
+  if (missing('tile_wall')) {
+    g.fillStyle(0x14141c).fillRect(0, 0, TILE, TILE);
+    g.fillStyle(0x2c2c3c).fillRect(0, 0, TILE, 6);
+    g.fillStyle(0x2c2c3c).fillRect(0, 0, 6, TILE);
+    g.fillStyle(0x0a0a10).fillRect(0, TILE - 6, TILE, 6);
+    g.lineStyle(2, 0x070709);
+    g.beginPath();
+    g.moveTo(0, TILE / 2);
+    g.lineTo(TILE, TILE / 2);
+    g.moveTo(TILE / 2, 0);
+    g.lineTo(TILE / 2, TILE / 2);
+    g.moveTo(TILE / 4, TILE / 2);
+    g.lineTo(TILE / 4, TILE);
+    g.strokePath();
+    g.generateTexture('tile_wall', TILE, TILE);
+    g.clear();
+  }
 
   // --- Treasure tile ---
-  g.fillStyle(0x262633).fillRect(0, 0, TILE, TILE);
-  g.lineStyle(2, 0x33334a).strokeRect(1, 1, TILE - 2, TILE - 2);
-  g.fillStyle(0x6e4621).fillRoundedRect(14, 22, 36, 26, 4);
-  g.fillStyle(0x8a5a2b).fillRoundedRect(14, 18, 36, 12, 4);
-  g.fillStyle(0xf1c40f).fillRect(30, 22, 4, 22);
-  g.generateTexture('tile_treasure', TILE, TILE);
-  g.clear();
+  if (missing('tile_treasure')) {
+    g.fillStyle(0x262633).fillRect(0, 0, TILE, TILE);
+    g.lineStyle(2, 0x33334a).strokeRect(1, 1, TILE - 2, TILE - 2);
+    g.fillStyle(0x6e4621).fillRoundedRect(14, 22, 36, 26, 4);
+    g.fillStyle(0x8a5a2b).fillRoundedRect(14, 18, 36, 12, 4);
+    g.fillStyle(0xf1c40f).fillRect(30, 22, 4, 22);
+    g.generateTexture('tile_treasure', TILE, TILE);
+    g.clear();
+  }
 
   // --- Stairs tile ---
-  g.fillStyle(0x1c1c28).fillRect(0, 0, TILE, TILE);
-  for (let i = 0; i < 4; i++) {
-    const shade = 0x2a2a3a + i * 0x0a0a0a;
-    g.fillStyle(shade).fillRect(8, 10 + i * 12, TILE - 16, 9);
+  if (missing('tile_stairs')) {
+    g.fillStyle(0x1c1c28).fillRect(0, 0, TILE, TILE);
+    for (let i = 0; i < 4; i++) {
+      const shade = 0x2a2a3a + i * 0x0a0a0a;
+      g.fillStyle(shade).fillRect(8, 10 + i * 12, TILE - 16, 9);
+    }
+    g.fillStyle(0xe6c46a);
+    g.fillTriangle(TILE / 2 - 8, 50, TILE / 2 + 8, 50, TILE / 2, 60);
+    g.generateTexture('tile_stairs', TILE, TILE);
+    g.clear();
   }
-  g.fillStyle(0xe6c46a);
-  g.fillTriangle(TILE / 2 - 8, 50, TILE / 2 + 8, 50, TILE / 2, 60);
-  g.generateTexture('tile_stairs', TILE, TILE);
-  g.clear();
 
-  // --- Fog overlay ---
+  // --- Fog overlay (always procedural — just a dark square) ---
   g.fillStyle(0x05050a, 1).fillRect(0, 0, TILE, TILE);
   g.generateTexture('fog', TILE, TILE);
   g.clear();
 
   // --- Spark (particles) ---
-  g.fillStyle(0xffffff, 1).fillCircle(8, 8, 8);
-  g.generateTexture('spark', 16, 16);
-  g.clear();
+  if (missing('spark')) {
+    g.fillStyle(0xffffff, 1).fillCircle(8, 8, 8);
+    g.generateTexture('spark', 16, 16);
+    g.clear();
+  }
 
   // --- Party member sprites — skip any class with real art already loaded ---
   const pcx = PARTY_TEX_W / 2;
