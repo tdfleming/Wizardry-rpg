@@ -2,8 +2,9 @@
 export const GAME_WIDTH = 1024;
 export const GAME_HEIGHT = 768;
 
-// Top-down dungeon tile size in pixels.
-export const TILE = 64;
+// Top-down dungeon tile size in pixels. A 10x10 grid leaves vertical room
+// above and below for the React HUD bands that overlay the canvas.
+export const TILE = 48;
 
 // Class accent colours, used for placeholder art and combat UI highlights.
 export const CLASS_COLORS = {

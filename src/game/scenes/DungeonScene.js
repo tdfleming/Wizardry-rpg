@@ -28,17 +28,10 @@ export class DungeonScene extends Phaser.Scene {
     this.gridW = state.dungeon[0].length;
     this.gridH = state.dungeon.length;
     this.offsetX = Math.round((GAME_WIDTH - this.gridW * TILE) / 2);
-    this.offsetY = 92;
+    // Centred vertically, leaving bands top and bottom for the React HUD.
+    this.offsetY = Math.round((GAME_HEIGHT - this.gridH * TILE) / 2);
 
     this.add.rectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, 0x07070d).setOrigin(0);
-
-    this.add
-      .text(GAME_WIDTH / 2, 44, `DUNGEON LEVEL ${state.dungeonLevel}`, {
-        fontFamily: 'Georgia, "Times New Roman", serif',
-        fontSize: '30px',
-        color: '#e6c46a',
-      })
-      .setOrigin(0.5);
 
     this.drawDungeon(state);
 
@@ -49,25 +42,13 @@ export class DungeonScene extends Phaser.Scene {
         this.tileY(state.position.y),
         `pc_${lead.class}`,
       )
+      .setScale(0.82)
       .setDepth(10);
 
     this.revealAround(state.position.x, state.position.y);
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keys = this.input.keyboard.addKeys('W,A,S,D,R');
-
-    this.add
-      .text(
-        GAME_WIDTH / 2,
-        GAME_HEIGHT - 30,
-        'Arrows / WASD — move      R — rest the party',
-        {
-          fontFamily: 'Georgia, serif',
-          fontSize: '16px',
-          color: '#7a7a8c',
-        },
-      )
-      .setOrigin(0.5);
   }
 
   tileX(x) {

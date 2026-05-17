@@ -59,7 +59,13 @@ export function GameHUD() {
   return (
     <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4">
       <div className="flex justify-center">
-        <div className="max-w-2xl rounded-lg border-2 border-amber-700/70 bg-gray-900/85 px-6 py-2 text-center backdrop-blur-sm">
+        <div className="max-w-2xl rounded-lg border-2 border-amber-700/70 bg-gray-900/90 px-6 py-2 text-center backdrop-blur-sm">
+          <div
+            className="text-sm font-bold tracking-widest text-amber-400"
+            style={{ fontFamily: "'Fondamento', serif" }}
+          >
+            DUNGEON LEVEL {state.dungeonLevel}
+          </div>
           <p
             className="whitespace-pre-line text-base text-amber-100"
             style={{ fontFamily: "'Fondamento', serif" }}
@@ -69,10 +75,15 @@ export function GameHUD() {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-2">
-        {state.party.map((member) => (
-          <PartyCard key={member.id} member={member} />
-        ))}
+      <div className="flex flex-col items-center gap-2">
+        <div className="text-xs tracking-wide text-gray-400">
+          Arrows / WASD — move      ·      R — rest the party
+        </div>
+        <div className="flex flex-wrap justify-center gap-2">
+          {state.party.map((member) => (
+            <PartyCard key={member.id} member={member} />
+          ))}
+        </div>
       </div>
     </div>
   );
