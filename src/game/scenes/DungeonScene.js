@@ -82,9 +82,12 @@ export class DungeonScene extends Phaser.Scene {
         const tile = this.add
           .image(this.tileX(x), this.tileY(y), key)
           .setDepth(0);
+        // Unexplored tiles stay visible but dimmed by a translucent veil;
+        // revealAround() hides the veil as the party explores.
         const fog = this.add
           .image(this.tileX(x), this.tileY(y), 'fog')
           .setDepth(5)
+          .setAlpha(0.5)
           .setVisible(!state.visited[y][x]);
         this.tileSprites[y][x] = tile;
         this.fogSprites[y][x] = fog;
